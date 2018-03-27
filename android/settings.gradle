@@ -1,0 +1,3 @@
+rootProject.name = 'nativePay'
+
+include ':app'
