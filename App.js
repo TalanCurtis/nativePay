@@ -23,7 +23,10 @@ export default class App extends Component<Props> {
         paymentMethodTokenizationParameters: {
           tokenizationType: 'NETWORK_TOKEN',
           parameters: {
-            publicKey: 'your-pubic-key'
+            //This may be the cause of the error!!!
+            // it was but where do I get a valid publicKey???
+            // publicKey: 'your-pubic-key'
+            publicKey: 'BOdoXP+9Aq473SnGwg3JU1aiNpsd9vH2ognq4PtDtlLGa3Kj8TPf+jaQNPyDSkh3JUhiS0KyrrlWhAgNZKHYF2Y='
           }
         }
       }
@@ -34,18 +37,20 @@ export default class App extends Component<Props> {
       displayItems: [
         {
           label: 'Movie Ticket',
-          amount: { currency: 'USD', value: '15.00' }
+          amount: { currency: 'USD', value: '1.00' }
         }
       ],
       total: {
         label: 'Merchant Name',
-        amount: { currency: 'USD', value: '15.00' }
+        amount: { currency: 'USD', value: '1.00' }
       }
     };
 
     const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
 
-    paymentRequest.show().then(paymentResponse => paymentResponse.complete('success'));
+    paymentRequest.show()
+    .then(paymentResponse => {console.warn('success'); return paymentResponse.complete('success')})
+    .catch((error) => console.warn('error: ',error));
 
   }
 
@@ -53,7 +58,7 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to React Native 02!
         </Text>
         <Button title='Pay Me' onPress={()=>this.handlePay()}></Button>
       </View>
